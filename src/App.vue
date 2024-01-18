@@ -1,15 +1,23 @@
 <template>
- <TheTwoColumnsLayout :leftColumnClass="'col-md-8 bg-vue'" :rightColumnClass="'col-md-4'" :fullsize="true"/>
+ <!-- <TheTwoColumnsLayout 
+ :leftColumnClass="'col-md-8 bg-vue'" 
+ :rightColumnClass="'col-md-4'"
+ :fullsize="true"/> -->
+ <HomePage />
 </template>
 
 <script>
-import TheTwoColumnsLayout from './layouts/TheTwoColumnsLayout'
+
+//import TheTwoColumnsLayout from './layouts/TheTwoColumnsLayout';
+import HomePage from './pages/HomePage';
 
 
 export default {
   name: 'App',
   components: {
-    TheTwoColumnsLayout,
+     //TheTwoColumnsLayout,
+       HomePage,
+    
   }
 }
 </script>

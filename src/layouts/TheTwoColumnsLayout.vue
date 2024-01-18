@@ -1,54 +1,53 @@
 <template>
     <div class="container-fluid" :class="containerClasses">
-      <div class="row" :class="rowClasses">
-        <div class="col-md-8" :class="leftColumnClasses">
-          <slot name="leftCol">
-            <h1>left Col</h1>
-          </slot>
+        <div class="row" :class="rowClasses">
+            <div :class="leftColumnClasses">
+            <slot name="leftCol">
+                <h1>Left Col</h1>
+            </slot>
+            </div>
+            <div :class="rightColumnClasses">
+            <slot name="rightCol">
+                <h1>Right Col</h1>
+            </slot>
+            </div>
         </div>
-        <div class="col-md-4" :class="rightColumnClasses">
-          <slot name="rightCol">
-            <h1>RIGHT Col</h1>
-          </slot>
-        </div>
-      </div>
     </div>
-  </template>
+</template>
   
-  <script>
-  export default {
+<script>
+export default {
     name: "TheTwoColumnsLayout",
     props: {
-      leftColumnClass: {
-        type: String,
-        default: "col-md-8",
-      },
-      rightColumnClass: {
-        type: String,
-        default: "col-md-4",
-      },
-      fullsize: {
-        type: Boolean,
-        default: false,
-      },
+        leftColumnClass: {
+            type: String,
+            default: "col-md-8",
+        },
+        rightColumnClass: {
+            type: String,
+            default: "col-md-4",
+        },
+        fullsize: {
+            type: Boolean,
+            default: false,
+        },
     },
     computed: {
-      leftColumnClasses() {
-        return [this.leftColumnClass, this.fullsize ? "h-100" : ""];
-      },
-      rightColumnClasses() {
-        return [this.rightColumnClass, this.fullsize ? "h-100" : ""];
-      },
-      rowClasses() {
-        return [this.fullsize ? "h-100" : ""];
-      },
-      containerClasses() {
-        return [this.fullsize ? "vh-100" : ""];
-      },
+        leftColumnClasses() {
+            return [this.leftColumnClass, this.fullsize ? "h-100" : ""];
+        },
+        rightColumnClasses() {
+            return [this.rightColumnClass, this.fullsize ? "h-100" : ""];
+        },
+        rowClasses() {
+            return [this.fullsize ? "h-100" : ""];
+        },
+        containerClasses() {
+            return [this.fullsize ? "vh-100" : ""];
+        },
     },
-  };
-  </script>
+};
+</script>
   
-  <style scoped>
-  </style>
+<style scoped></style>
   
