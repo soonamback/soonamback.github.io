@@ -13,7 +13,16 @@
         </div>
     </div>
    </template>
-   <template #rightCol><Register/></template>
+   <template #rightCol>
+    <transition enter-active-class="animate__animated animate__bounceInRight"
+    leave-active-class="animate__animated animate__bounceOutRight"
+    mode="out-in"
+    >
+    <component :is="componentName" @change-component="changeComponent">
+
+    </component> 
+</transition>    
+</template>
 
     </TheTwoColumnsLayout>
 </template>
@@ -23,13 +32,24 @@
 import TheTwoColumnsLayout from "@/layouts/TheTwoColumnsLayout"
 // import TheTwoColumnsLayout from "../layouts/TheTwoColumnsLayout"
 import Register from '@/components/auth/Register'
-
+import Login from '@/components/auth/Login'
 export default {
     name: "HomePage",
     components: { 
          TheTwoColumnsLayout,
-         Register   
+         Register,
+         Login 
         },
+        data() { 
+            return { 
+                componentName: "register",
+            }
+        },
+        methods: { 
+            changeComponent(payload) { 
+                this.componentName = payload.componentName;
+            },
+        }
 }
 </script>
 
