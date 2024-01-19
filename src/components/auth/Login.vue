@@ -10,6 +10,9 @@
                 <a class="text-vue2" role="button" @click="changeComponent('register')">Create your account</a>
             </p>
         </div>
+        <div class="alert alert-danger col-md-8 offset-2" v-if="error">
+            {{ errorDisplayText }}
+        </div>
         <Form @submit="submitData" :validation-schema="schema" v-slot="{ errors }">
             <div class="form-row">
                 <div class="form-group col-md-8 offset-2">
@@ -29,11 +32,13 @@
                     </small>
                 </div>
             </div>
-
             <div class="form-row mt-3">
                 <div class="form-group col-md-8 offset-2">
                     <div class="d-grid">
-                        <button class="btn bg-vue">Login</button>
+                        <button class="btn bg-vue">
+                            <span v-if="!isLoading">Login</span>
+                            <span v-else class="spinner-border spinner-border-sm"></span>
+                        </button>
                     </div>
                 </div>
             </div>
@@ -44,6 +49,8 @@
 <script>
 import { Form, Field } from 'vee-validate';
 import * as yup from "yup";
+
+
 export default {
     name: "Register",
     components: {
@@ -52,7 +59,7 @@ export default {
     },
     emits: {
         'change-component': (payload) => {
-            if (payload.componentName !== "login") {
+            if (payload.componentName !== "register") {
                 return false;
             }
             return true;
@@ -65,17 +72,48 @@ export default {
 
         })
         return {
-            schema
+            schema,
+            error: "",
+            isLoading: false
         };
     },
     methods: {
         submitData(values) {
-            console.log(values)
+            this.isLoading = true
+            this.error = ""
+            this.$store
+                .dispatch("signin", {
+                    email: values.email,
+                    password: values.password,
+                })
+                .then(() => {
+                    this.isLoading = false;
+                    console.log("login success")
+                    // this.changeComponent("login")
+                })
+                .catch((error) => {
+                    this.error = error.message;
+                    this.isLoading = false
+                })
         },
         changeComponent(componentName) {
             this.$emit("change-component", { componentName })
         }
-    }
+    },
+    
+    computed: {
+        errorDisplayText() {
+            if (this.error) {
+                if (this.error.includes("INVALID_PASSWORD")) {
+                    return "Invalid Password"
+                } else if(this.error.includes("EMAIL_NOT_FOUND")) { 
+                    return "Email not found"
+                } 
+                return "Unknown Error. Please try again"
+                }
+                return ""
+        }
+    },
 };
 </script>
   

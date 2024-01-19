@@ -11,7 +11,7 @@
             </p>
         </div>
         <div class="alert alert-danger col-md-8 offset-2" v-if="error">
-        {{ errorDisplayText }}
+            {{ errorDisplayText }}
         </div>
         <Form @submit="submitData" :validation-schema="schema" v-slot="{ errors }">
             <div class="form-row">
@@ -44,7 +44,9 @@
             <div class="form-row mt-3">
                 <div class="form-group col-md-8 offset-2">
                     <div class="d-grid">
-                        <button class="btn bg-vue">Register Now</button>
+                        <button class="btn bg-vue">
+                            <span v-if="!isLoading">Register</span>
+                            <span v-else class="spinner-border spinner-border-sm"></span></button>
                     </div>
                 </div>
             </div>
@@ -55,8 +57,7 @@
 <script>
 import { Form, Field } from 'vee-validate';
 import * as yup from "yup";
-import axios from "axios";
-import { FIREBASE_API_KEY } from "../../config/firebase";
+
 
 export default {
     name: "Register",
@@ -64,12 +65,12 @@ export default {
         Form,
         Field
     },
-    emits: { 
-        'change-component': (payload) => { 
-            if(payload.componentName !== "login") { 
+    emits: {
+        'change-component': (payload) => {
+            if (payload.componentName !== "login") {
                 return false;
             }
-                return true;
+            return true;
         },
     },
     data() {
@@ -81,12 +82,13 @@ export default {
         return {
             schema,
             error: "",
+            isLoading: false
         };
     },
-    computed: { 
-        errorDisplayText() { 
-            if(this.error) { 
-                if(this.error.includes("EMAIL_EXISTS")) { 
+    computed: {
+        errorDisplayText() {
+            if (this.error) {
+                if (this.error.includes("EMAIL_EXISTS")) {
                     return "The Email already exists"
                 }
                 return "Unknown Error. Please try again"
@@ -96,19 +98,22 @@ export default {
     },
     methods: {
         submitData(values) {
-            const signupDO = { 
+            this.isLoading = true
+            this.error = ""
+            this.$store.dispatch("signup", {
                 email: values.email,
-                password: values.password,
-                returnSecureToken: true
-            };
-            axios.post(`https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${FIREBASE_API_KEY}`, signupDO
-            ).then((response) => {  
-                console.log(response)
-            }).catch((error) => { 
-               this.error = error.response.data.error.message;
+                password: values.password
+            }).then(() => {
+                this.isLoading = false
+                this.changeComponent("login")
             })
+                .catch((error) => {
+                    this.error = error.message
+                    this.isLoading = false
+                })
+
         },
-        changeComponent(componentName) { 
+        changeComponent(componentName) {
             this.$emit("change-component", { componentName })
         }
     }
