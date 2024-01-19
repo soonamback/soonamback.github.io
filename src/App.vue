@@ -1,24 +1,15 @@
 <template>
- <!-- <TheTwoColumnsLayout 
- :leftColumnClass="'col-md-8 bg-vue'" 
- :rightColumnClass="'col-md-4'"
- :fullsize="true"/> -->
- <HomePage />
+<router-view>
+
+</router-view>
+ 
 </template>
 
 <script>
 
-//import TheTwoColumnsLayout from './layouts/TheTwoColumnsLayout';
-import HomePage from './pages/HomePage';
-
-
 export default {
   name: 'App',
-  components: {
-     //TheTwoColumnsLayout,
-       HomePage,
-    
-  }
+ 
 }
 </script>
 
