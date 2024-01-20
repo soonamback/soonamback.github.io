@@ -4,10 +4,10 @@
         <router-link to="/shop" class="navbar-brand">The Shop</router-link>
         <ul class="navbar-nav me-auto">
           <li class="nav-item active">
-            <a class="nav-link">Start Page</a>
+            <router-link to="/shop" class="nav-link">Start Page</router-link>
           </li>
           <li class="nav-item">
-            <a class="nav-link">New Article</a>
+            <router-link to="/shop/item/create" class="nav-link">New Article</router-link>
           </li>
         </ul>
         <button class="btn bg-vue me-3">

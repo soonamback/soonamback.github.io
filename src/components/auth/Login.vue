@@ -89,7 +89,9 @@ export default {
                 .then(() => {
                     this.isLoading = false;
                     console.log("login success")
-                    // this.changeComponent("login")
+                    // redirect to home
+                    // this.$router.push("/shop")
+                    this.$router.push({ path: "/shop" })
                 })
                 .catch((error) => {
                     this.error = error.message;
