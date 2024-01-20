@@ -1,6 +1,8 @@
 import { FIREBASE_API_KEY } from '../../../config/firebase'
 import axios from 'axios'
 
+let timer;
+
 const state =  {
         userId: null,
         token: null,
@@ -30,12 +32,17 @@ const actions = {
             .post(url, authDO)
             .then((response) => {
                 //save data in localstorage
-                const expiresIn = Number(response.data.expiresIn ) * 1000 
+                //const expiresIn = Number(response.data.expiresIn ) * 1000 
+                const expiresIn = 3 * 1000 
                 const expDate = new Date().getTime() + expiresIn;
                 localStorage.setItem("token", response.data.idToken);
                 localStorage.setItem("userId", response.data.localId);
                 localStorage.setItem("expiresIn", expDate);
 
+                    timer = setTimeout(() => {
+                    context.dispatch("autoSignout")
+                    },expiresIn)    
+                
                 context.commit("setUser", {
                 userId: response.data.localId,
                 token: response.data.idToken
@@ -61,6 +68,22 @@ const actions = {
             }
             return context.dispatch("auth", signInDO)
         },
+        signout(context) {
+            localStorage.removeItem("token");
+            localStorage.removeItem("userId");
+            localStorage.removeItem("expiresIn");
+            
+            clearTimeout(timer)
+            
+            context.commit("setUser", {
+                token: null,
+                userId: null
+            })
+        },
+        autoSignout(context) {
+            context.dispatch("signout");
+        }
+     
     }
 
 
