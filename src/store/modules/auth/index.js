@@ -68,6 +68,27 @@ const actions = {
             }
             return context.dispatch("auth", signInDO)
         },
+        autoSignin(context) {
+            const token = localStorage.getItem("token")
+            const userId = localStorage.getItem("userId")
+            const expiresIn = localStorage.getItem("expiresIn")
+            const timeLeft = Number(expiresIn) - new Date().getTime();
+
+            if(timeLeft < 0) {
+                return;
+            }
+            
+            timer = setTimeout(() => {
+                context.dispatch("autoSignout")
+            }, expiresIn)
+            if(token && userId) {
+                context.commit("setUser", {
+                    token: token,
+                    userId: userId
+                })
+            }
+
+        },
         signout(context) {
             localStorage.removeItem("token");
             localStorage.removeItem("userId");
