@@ -9,14 +9,14 @@
           <strong class="text-vue">{{ product.price }} €</strong>
         </div>
       </div>
-            <router-link
-        :to="`/shop/read/product/${product.id}`" 
-        class="stretched-link"
-      ></router-link>
-      <!-- <router-link
-        :to="{ name: 'ReadProduct', params: { id: product.id } }"
+      <!--       <router-link
+        :to="`/shop/read/product/${product.id}`"
         class="stretched-link"
       ></router-link> -->
+      <router-link
+        :to="{ name: 'ReadProduct', params: { id: product.id } }"
+        class="stretched-link"
+      ></router-link>
     </div>
   </div>
 </template>
