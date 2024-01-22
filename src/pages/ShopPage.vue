@@ -1,19 +1,30 @@
 <template>
   <TheShopLayout>
     <template #default>
-        <h2>Hello</h2>
+        <div class="roww">
+          <div class="col-3 m-3" v-for="product in products" :key="product.id">
+          <ProductListItem :product="product"/>
+          </div>
+        </div>
     </template>
   </TheShopLayout>
 </template>
 
 <script>
 import TheShopLayout from '@/layouts/TheShopLayout'
+import ProductListItem from '@/components/shop/ProductListItem'
 
 export default {
     name:"ShopPage",
     components: {
-        TheShopLayout
-    },
+        TheShopLayout,
+        ProductListItem     
+      },
+      computed: {
+        products() {
+          return this.$store.getters.products;
+        },
+      }
 }
 </script>
 
