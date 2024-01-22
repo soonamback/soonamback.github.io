@@ -48,7 +48,8 @@ const actions = {
 }
 const getters = {
     products: (state) => state.products,
-}
+    product: (state) => (id) => state.products.find((product) => product.id === id)
+};
 
 const shopModule = {
     state,
