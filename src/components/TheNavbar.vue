@@ -7,7 +7,7 @@
             <router-link to="/shop" class="nav-link">Start Page</router-link>
           </li>
           <li class="nav-item">
-            <router-link to="/shop/item/create" class="nav-link">New Article</router-link>
+            <router-link to="/shop/create/product" class="nav-link">New Article</router-link>
           </li>
         </ul>
         <button class="btn bg-vue me-3">

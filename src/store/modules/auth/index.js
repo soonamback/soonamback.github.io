@@ -32,8 +32,8 @@ const actions = {
             .post(url, authDO)
             .then((response) => {
                 //save data in localstorage
-                //const expiresIn = Number(response.data.expiresIn ) * 1000 
-                const expiresIn = 3 * 1000 
+                const expiresIn = Number(response.data.expiresIn ) * 1000 
+                // const expiresIn = 3 * 1000 
                 const expDate = new Date().getTime() + expiresIn;
                 localStorage.setItem("token", response.data.idToken);
                 localStorage.setItem("userId", response.data.localId);
@@ -108,7 +108,9 @@ const actions = {
     }
 
 
-const getters = {}
+const getters = {
+    isAuthenticated: (state) => !!state.token,
+}
 
 const authModule = {
     state,
