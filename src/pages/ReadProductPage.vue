@@ -62,7 +62,7 @@
   </template>
   
   <script>
-//   import { mapActions } from "vuex";
+  import { mapActions } from "vuex";
   import TheShopLayout from "@/layouts/TheShopLayout";
   export default {
     name: "ReadProductPage",
@@ -90,17 +90,17 @@
       // console.log(from);
       this.id = to.params.id;
     }, */
-    /*   methods: {
-      addItemToCart() {
-        this.$store.dispatch("addItemToCart", {
-          productId: this.id,
-        });
-      },
-    }, */
-    // methods: {
-    //   // ...mapActions(["addItemToCart"])
-    //   ...mapActions({ addProduct: "addItemToCart" }),
-    // },
+    //    methods: {
+    //   addItemToCart() {
+    //     this.$store.dispatch("addItemToCart", {
+    //       productId: this.id,
+    //     });
+    //   },
+    // }, 
+    methods: {
+      // ...mapActions(["addItemToCart"])
+      ...mapActions({ addProduct: "addItemToCart" }),
+    },
   };
   </script>
   

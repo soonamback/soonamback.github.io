@@ -1,51 +1,16 @@
 import { createRouter, createWebHistory } from "vue-router";
-import ShopPage from "@/pages/ShopPage";
+
 //import HomePage from "@/pages/HomePage";
-import CreateProductPage from "@/pages/CreateProductPage"
-import ReadProductPage from "@/pages/ReadProductPage";
+
 import NotFoundPage from"@/pages/NotFoundPage"
-import store from "../store/index"; 
+import store from "@/store";
+import routes from "./routes";
+
 
 const router = createRouter({
     history: createWebHistory(),
     routes: [
-    {
-        path: "/",
-        alias: "/home",
-        component: () => import("@/pages/HomePage"),
-        beforeEnter: (to, from, next) => {
-            if (store.getters.isAuthenticated) {
-                next("/shop")
-            } else {
-                next()
-            }
-        },
-    },
-    {
-        path: "/shop",
-        component: ShopPage,
-        meta: {
-            requiresAuth: true,
-        }
-    },
-    {
-        path: "/shop/create/product",
-        component: CreateProductPage,
-        meta: {
-            requiresAuth: true,
-        }
-    },
-    {
-        path: "/shop/read/product/:id",
-        name: "ReadProduct",
-        component: ReadProductPage,
-        props: true,
-        meta: {
-            requiresAuth: true,
-            //enterTransition: "rubberBand"
-        }
-       
-    },
+        ...routes,
     {
         path: "/:pathMatch(.*)*",
         component: NotFoundPage,

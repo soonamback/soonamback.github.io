@@ -11,7 +11,7 @@
           </li>
         </ul>
         <button class="btn bg-vue me-3">
-          <i class="fas fa-shopping-card"></i> Cart (10 €)
+          <i class="fas fa-shopping-card"></i> Cart {{ cartSum }} €
         </button>
         <button class="btn bg-vue2" @click="signout()">
           <i class="fas fa-sign-out-alt"></i> Logout
@@ -21,8 +21,15 @@
   </template>
   
   <script>
+  import { mapGetters } from "vuex"
   export default {
     name: "TheNavbar",
+    computed: {
+      ...mapGetters({ cartSum: "cartTotal" }),
+      // cartTotal() {
+      //   return this.$store.getters.cartTotal;
+      // },
+    },
     methods: {
      async signout() {
         try {
