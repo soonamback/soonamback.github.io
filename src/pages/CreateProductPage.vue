@@ -5,7 +5,7 @@
                 <div class="col-12">
                     <h1 class="mt-4">
                         New Article
-                        <button class="btn btn-lg bg-vue float-end" @click="createProduct()">Save</button>
+                        <button class="btn btn-lg bg-vue float-end" @click="createProduct()" >Save</button>
                     </h1>
                     <div class="card mt-4">
                         <div class="row no-gutters">
@@ -60,8 +60,13 @@ export default {
         }
     },
     methods: {
-        createProduct() {
-            this.$store.dispatch("storeProduct", this.product)
+        async createProduct() {
+           try {
+             await this.$store.dispatch("storeProduct", this.product)
+             this.$router.go(-1)
+           } catch(error) {
+                console.log(error)
+           } 
         }
     },
 };
