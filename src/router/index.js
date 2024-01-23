@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from "vue-router";
 import ShopPage from "@/pages/ShopPage";
-import HomePage from "@/pages/HomePage";
+//import HomePage from "@/pages/HomePage";
 import CreateProductPage from "@/pages/CreateProductPage"
 import ReadProductPage from "@/pages/ReadProductPage";
 import NotFoundPage from"@/pages/NotFoundPage"
@@ -12,7 +12,7 @@ const router = createRouter({
     {
         path: "/",
         alias: "/home",
-        component: HomePage,
+        component: () => import("@/pages/HomePage"),
         beforeEnter: (to, from, next) => {
             if (store.getters.isAuthenticated) {
                 next("/shop")
@@ -42,6 +42,7 @@ const router = createRouter({
         props: true,
         meta: {
             requiresAuth: true,
+            //enterTransition: "rubberBand"
         }
        
     },

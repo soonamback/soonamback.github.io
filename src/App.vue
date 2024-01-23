@@ -1,8 +1,12 @@
 <template>
-<router-view>
-
+<!-- <router-view v-slot="{ Component }">
+  <transition enter-active-class="`animate__animated animate__${$route.meta.enterTransition}`" leave-active-class="animate__animated animate__fadeOut" mode="out-in">
+  
+  <component :is="Component" :key="$route.path"></component>
+</transition>
 </router-view>
- 
+  -->
+  <router-view></router-view>
 </template>
 
 <script>

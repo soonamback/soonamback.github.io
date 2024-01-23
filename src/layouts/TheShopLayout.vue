@@ -5,7 +5,13 @@
         <div class="container">
           <div class="row">
             <div class="col-12">
-              <slot><h1>Main</h1></slot>
+              <transition
+               enter-active-class="animate__animated animate__fadeIn" leave-active-class="animate__animated animate__fadeOut" mode="out-in"
+               appear
+               :key="$route.path"
+               >
+              <slot v-if="true"><h1>Main</h1></slot>
+            </transition>
             </div>
           </div>
         </div>
