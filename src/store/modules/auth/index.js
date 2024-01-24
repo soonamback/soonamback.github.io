@@ -1,4 +1,4 @@
-import { firebase_api_key } from "../../../config/firebase.js";
+import { FIREBASE_API_KEY } from "../../../config/firebase.js";
 import axios from 'axios'
 
 let timer;
@@ -17,9 +17,9 @@ const actions = {
         auth(context, payload) {
             let url = "";
             if(payload.mode === "signin"){
-                url = `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${firebase_api_key}`
+                url = `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${FIREBASE_API_KEY}`
             } else if (payload.mode === "signup") {
-               url = `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${firebase_api_key}`
+               url = `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${FIREBASE_API_KEY}`
             } else {
                 return;
             }
