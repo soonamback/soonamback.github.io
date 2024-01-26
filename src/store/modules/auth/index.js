@@ -43,7 +43,7 @@ const actions = {
                     context.dispatch("autoSignout")
                     },expiresIn)    
                 
-                context.commit("setUser", {
+                context.commit('setUser', {
                 userId: response.data.localId,
                 token: response.data.idToken
             } )
